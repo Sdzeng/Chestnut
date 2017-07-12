@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.arbor.chestnut.repository.dao.UserFollowerModelMapper" >
+  <resultMap id="BaseResultMap" type="com.arbor.chestnut.repository.entity.UserFollowerModel" >
+    <id column="uf_user_id" property="userId" jdbcType="INTEGER" />
+    <id column="uf_follower_id" property="followerId" jdbcType="INTEGER" />
+    <result column="uf_follow_type" property="followType" jdbcType="CHAR" />
+    <result column="uf_creator" property="creator" jdbcType="INTEGER" />
+    <result column="uf_create_date" property="createDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    uf_user_id, uf_follower_id, uf_follow_type, uf_creator, uf_create_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.arbor.chestnut.repository.entity.UserFollowerModelKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_follower
+    where uf_user_id = #{userId,jdbcType=INTEGER}
+      and uf_follower_id = #{followerId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.arbor.chestnut.repository.entity.UserFollowerModelKey" >
+    delete from user_follower
+    where uf_user_id = #{userId,jdbcType=INTEGER}
+      and uf_follower_id = #{followerId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.arbor.chestnut.repository.entity.UserFollowerModel" >
+    insert into user_follower (uf_user_id, uf_follower_id, uf_follow_type, 
+      uf_creator, uf_create_date)
+    values (#{userId,jdbcType=INTEGER}, #{followerId,jdbcType=INTEGER}, #{followType,jdbcType=CHAR}, 
+      #{creator,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.arbor.chestnut.repository.entity.UserFollowerModel" >
+    insert into user_follower
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        uf_user_id,
+      </if>
+      <if test="followerId != null" >
+        uf_follower_id,
+      </if>
+      <if test="followType != null" >
+        uf_follow_type,
+      </if>
+      <if test="creator != null" >
+        uf_creator,
+      </if>
+      <if test="createDate != null" >
+        uf_create_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="followerId != null" >
+        #{followerId,jdbcType=INTEGER},
+      </if>
+      <if test="followType != null" >
+        #{followType,jdbcType=CHAR},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.arbor.chestnut.repository.entity.UserFollowerModel" >
+    update user_follower
+    <set >
+      <if test="followType != null" >
+        uf_follow_type = #{followType,jdbcType=CHAR},
+      </if>
+      <if test="creator != null" >
+        uf_creator = #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null" >
+        uf_create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where uf_user_id = #{userId,jdbcType=INTEGER}
+      and uf_follower_id = #{followerId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.arbor.chestnut.repository.entity.UserFollowerModel" >
+    update user_follower
+    set uf_follow_type = #{followType,jdbcType=CHAR},
+      uf_creator = #{creator,jdbcType=INTEGER},
+      uf_create_date = #{createDate,jdbcType=TIMESTAMP}
+    where uf_user_id = #{userId,jdbcType=INTEGER}
+      and uf_follower_id = #{followerId,jdbcType=INTEGER}
+  </update>
+</mapper>

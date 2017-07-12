@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+ <!-- xmlns:ng="//angularjs.org" id="ng-app" ng-app="akApp" -->
+<head>
+<meta charset=utf-8>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name=description content="栗子">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>haha</title>
+
+<!-- 把内嵌js放在所有css的前面，没有影响css的并行加载也没有影响body里面img的并行加载 -->
+<!-- <script ></script> -->
+
+<link href="/plugins/bootstrap-3.3.6-dist/css/bootstrap.min.css"
+	rel="stylesheet" />
+</head>
+<body>
+
+	<div ng-app="" ng-init="userNikename='ssss'">
+		<p>
+			名字 : <input type="text" ng-model="userNikename">
+		</p>
+		<h1>Hello {{userNikename}}</h1>
+
+
+		<h1>
+			Example Heading <span class="label label-default">Label</span>
+		</h1>
+		<h2>
+			Example Heading <span class="label label-default">Label</span>
+		</h2>
+		<h3>
+			Example Heading <span class="label label-default">Label</span>
+		</h3>
+		<h4>
+			Example Heading <span class="label label-default">Label</span>
+		</h4>
+
+	</div>
+
+	<!-- 外联JS位置 -->
+	<script async src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script async src="/plugins/bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
+	<script async src="/plugins/angular-1.5.7/angular.min.js"></script>
+</body>
+</html>

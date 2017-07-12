@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.arbor.chestnut.repository.dao.MediaModelMapper" >
+  <resultMap id="BaseResultMap" type="com.arbor.chestnut.repository.entity.MediaModel" >
+    <id column="media_id" property="id" jdbcType="BIGINT" />
+    <result column="media_essay_id" property="essayId" jdbcType="BIGINT" />
+    <result column="media_path" property="path" jdbcType="VARCHAR" />
+    <result column="media_heart_num" property="heartNum" jdbcType="BIGINT" />
+    <result column="media_creator" property="creator" jdbcType="INTEGER" />
+    <result column="media_create_date" property="createDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    media_id, media_essay_id, media_path, media_creator, media_create_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from media
+    where media_id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from media
+    where media_id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.arbor.chestnut.repository.entity.MediaModel" >
+    insert into media (media_id, media_essay_id, media_path, 
+      media_creator, media_create_date)
+    values (#{id,jdbcType=BIGINT}, #{essayId,jdbcType=BIGINT}, #{path,jdbcType=VARCHAR}, 
+      #{creator,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.arbor.chestnut.repository.entity.MediaModel" >
+    insert into media
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        media_id,
+      </if>
+      <if test="essayId != null" >
+        media_essay_id,
+      </if>
+      <if test="path != null" >
+        media_path,
+      </if>
+        <if test="heartNum != null" >
+        media_heart_num,
+      </if>
+      <if test="creator != null" >
+        media_creator,
+      </if>
+      <if test="createDate != null" >
+        media_create_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="essayId != null" >
+        #{essayId,jdbcType=BIGINT},
+      </if>
+      <if test="path != null" >
+        #{path,jdbcType=VARCHAR},
+      </if>
+       <if test="heartNum != null" >
+        #{heartNum,jdbcType=BIGINT},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.arbor.chestnut.repository.entity.MediaModel" >
+    update media
+    <set >
+      <if test="essayId != null" >
+        media_essay_id = #{essayId,jdbcType=BIGINT},
+      </if>
+      <if test="path != null" >
+        media_path = #{path,jdbcType=VARCHAR},
+      </if>
+        <if test="heartNum != null" >
+        media_heart_num = #{heartNum,jdbcType=BIGINT},
+      </if>
+      <if test="creator != null" >
+        media_creator = #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null" >
+        media_create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where media_id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.arbor.chestnut.repository.entity.MediaModel" >
+    update media
+    set media_essay_id = #{essayId,jdbcType=BIGINT},
+      media_path = #{path,jdbcType=VARCHAR},
+      media_heart_num = #{heartNum,jdbcType=BIGINT},
+      media_creator = #{creator,jdbcType=INTEGER},
+      media_create_date = #{createDate,jdbcType=TIMESTAMP}
+    where media_id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  
+  
+  
+  <!-- extends -->
+  <resultMap id="mediaResultMap" extends="BaseResultMap" type="com.arbor.chestnut.repository.entity.MediaModel">
+  
+		<association property="essayModel" column="essay_id" javaType="com.arbor.chestnut.repository.entity.EssayModel">
+			<id property="id" column="essay_id" jdbcType="BIGINT"  />
+			<result property="content" column="essay_content" jdbcType="VARCHAR"  />
+			<result property="location" column="essay_location"  jdbcType="VARCHAR"  />
+			<result property="goodNum" column="essay_good_num" jdbcType="INTEGER" />
+			<result property="isDelete" column="essay_is_delete" jdbcType="BIT" />
+			<result property="createDate" column="essay_create_date" jdbcType="INTEGER" />
+		</association>
+    	<association property="userModel" column="user_id" javaType="com.arbor.chestnut.repository.entity.UserModel">
+			<id property="id" column="user_id"  jdbcType="INTEGER" />
+			<result property="nikename" column="user_nikename" jdbcType="VARCHAR"  />
+		</association> 
+       <!--  <collection property="userRoles" javaType="list" ofType="sy.model.UserRole">
+            <id property="id" column="userrole_id" />
+            <result column="role_id" property="roleId" />
+            <result property="userId" column="user_id" />
+
+            <association property="role" javaType="sy.model.Role">
+                <id property="id" column="role_id" />
+                <result property="text" column="role_text" />
+            </association>
+        </collection> -->
+	</resultMap>
+	<select id="getTopMediaList" resultMap="mediaResultMap">
+	
+		select `user`.*,
+		essay.*,
+		media.*,
+		(media.media_heart_num*0.5+essay.essay_good_num*0.3+essay.essay_repost_num*0.15+essay.essay_comment_num*0.05) orderColumn 
+		
+		from media  
+		LEFT JOIN essay on media.media_essay_id = essay.essay_id 
+		left join user on essay.essay_creator=user.user_id  
+		where 
+		DATE_SUB(CURDATE(), INTERVAL #{daysAgo,jdbcType=INTEGER} DAY) &lt;= date(media.media_create_date) 
+		and essay.essay_is_delete=0 
+		order by orderColumn desc  
+		limit #{topNum,jdbcType=INTEGER}
+	</select>
+</mapper>

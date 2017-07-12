@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.arbor.chestnut.repository.dao.TopicModelMapper" >
+  <resultMap id="BaseResultMap" type="com.arbor.chestnut.repository.entity.TopicModel" >
+    <id column="topic_id" property="id" jdbcType="INTEGER" />
+    <result column="topic_name" property="name" jdbcType="VARCHAR" />
+    <result column="topic_creator" property="creator" jdbcType="INTEGER" />
+    <result column="topic_create_date" property="createDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    topic_id, topic_name, topic_creator, topic_create_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from topic
+    where topic_id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from topic
+    where topic_id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.arbor.chestnut.repository.entity.TopicModel" >
+    insert into topic (topic_id, topic_name, topic_creator, 
+      topic_create_date)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{creator,jdbcType=INTEGER}, 
+      #{createDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.arbor.chestnut.repository.entity.TopicModel" >
+    insert into topic
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        topic_id,
+      </if>
+      <if test="name != null" >
+        topic_name,
+      </if>
+      <if test="creator != null" >
+        topic_creator,
+      </if>
+      <if test="createDate != null" >
+        topic_create_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.arbor.chestnut.repository.entity.TopicModel" >
+    update topic
+    <set >
+      <if test="name != null" >
+        topic_name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        topic_creator = #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null" >
+        topic_create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where topic_id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.arbor.chestnut.repository.entity.TopicModel" >
+    update topic
+    set topic_name = #{name,jdbcType=VARCHAR},
+      topic_creator = #{creator,jdbcType=INTEGER},
+      topic_create_date = #{createDate,jdbcType=TIMESTAMP}
+    where topic_id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

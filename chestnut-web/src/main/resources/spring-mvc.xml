@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+
+	<!-- 对包中的所有类进行扫描，以完成Bean创建和自动依赖注入的功能 ，使SpringMVC认为包下用了@controller注解的类是控制器  -->
+	<context:component-scan base-package="com.arbor.chestnut.web">
+		<!-- 允许定义过滤器将基包下的某些类纳入或排除 <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/> -->
+	</context:component-scan>
+
+
+	<!-- 指定自己定义的validator(数据验证器) -->
+	<mvc:annotation-driven />
+
+	<!-- 国际化的消息资源文件（本系统中主要用于显示/错误消息定制） -->
+	<bean id="messageSource"
+		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<!-- 在web环境中一定要定位到classpath 否则默认到当前web应用下找 -->
+				<value>classpath:validatemessages</value>
+				<value>classpath:org/hibernate/validator/ValidationMessages</value>
+			</list>
+		</property>
+		<property name="useCodeAsDefaultMessage" value="false" />
+		<property name="defaultEncoding" value="UTF-8" />
+		<property name="cacheSeconds" value="120" />
+	</bean>
+	
+	
+
+	<!-- 视图解析器 begin -->
+	<!-- ContentNegotiatingViewResolver视图解析器,利用他就可以配置多种返回值 -->
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+		<property name="contentNegotiationManager" ref="cnManager" />
+		<property name="order" value="0" />
+		<property name="viewResolvers">
+			<list>
+
+				<!--freeMarker视图解析器 -->
+				<bean id="ftlViewResolver"
+					class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+					<property name="viewClass"
+						value="org.springframework.web.servlet.view.freemarker.FreeMarkerView" />
+					<property name="cache" value="true" />
+					<property name="suffix" value=".ftl" />
+					<property name="contentType" value="text/html;charset=utf-8" />
+					<property name="exposeRequestAttributes" value="true" />
+					<property name="exposeSessionAttributes" value="true" />
+					<property name="exposeSpringMacroHelpers" value="true" />
+					<property name="requestContextAttribute" value="request"></property>
+				</bean>
+
+				<!--通用视图解析器 -->
+				<bean id="commonViewResolver"
+					class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+					<property name="viewClass"
+						value="org.springframework.web.servlet.view.InternalResourceView" />
+					<!-- 规定return时必须写明的后缀 -->
+					<property name="viewNames" value="*" />
+					<property name="prefix" value="/WEB-INF/views/" />
+					<!-- return时自动帮用户添加后缀 -->
+					<property name="suffix" value=".html" />
+					<property name="contentType" value="text/html;charset=utf-8" />
+				</bean>
+
+			</list>
+		</property>
+	</bean>
+	
+<!-- 	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+		<description>注解controller方法适配器</description>
+		<property name="messageConverters">
+			<list>JSON转换器
+				<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+					<property name="supportedMediaTypes" value="application/json;charset=UTF-8" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+ -->
+
+	<!-- 配置contentNegotiationManager -->
+	<bean id="cnManager"
+		class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+		<!-- 1、开启默认匹配,如果所有的mediaType都没匹配上，就会使用defaultContentType -->
+		<property name="defaultContentType" value="text/html" />
+		<!-- 2、支持accept-header匹配,这里是否忽略掉accept header，默认就是false -->
+		<property name="ignoreAcceptHeader" value="true" />
+		<!-- 3、支持后缀匹配 -->
+		<property name="favorPathExtension" value="true" />
+		<!-- 4、支持参数匹配 -->
+		<property name="favorParameter" value="false" />
+		<!-- 预设key对应后缀名及参数format的值， 与匹配策略3，4相关 -->
+		<property name="mediaTypes">
+			<map>
+				<entry key="json" value="application/json" />
+				<entry key="xml" value="application/xml" />
+			</map>
+		</property>
+	</bean>
+
+	<!-- 配置freeMarker的模板路径 -->
+	<bean id="freemarkerConfig"
+		class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+		<property name="templateLoaderPath" value="/WEB-INF/views/" />
+		<property name="freemarkerVariables">
+			<map>
+				<entry key="xml_escape" value-ref="fmXmlEscape" />
+				<!-- <entry key="achosturl" value="${common.session.host}" /> <entry 
+					key="max_upload_file_size" value="${oss.maxUploadSize}" /> <entry key="cdn_path" 
+					value="${common.cdn.path}" /> -->
+			</map>
+		</property>
+		<property name="defaultEncoding" value="utf-8" />
+		<property name="freemarkerSettings">
+			<props>
+				<prop key="template_update_delay">0</prop>
+				<prop key="locale">zh_CN</prop>
+				<prop key="datetime_format">yyyy-MM-dd HH:mm:ss</prop>
+				<prop key="date_format">yyyy-MM-dd</prop>
+				<prop key="number_format">#.##</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="fmXmlEscape" class="freemarker.template.utility.XmlEscape" />
+
+	<!-- /视图解析器 end -->
+	
+
+
+	<!-- 拦截器,不做权限检查 -->
+	<mvc:interceptors>
+			<mvc:interceptor>
+			<!-- 如果不定义 mvc:exclude-mapping 将拦截所有的URL请求,对应路由路径 -->
+			<mvc:mapping path="/**" />
+			<mvc:mapping path="/**/**" />
+			<mvc:exclude-mapping path="/*.ico" />
+		    <!-- 	<mvc:mapping path="/**" />
+			<mvc:exclude-mapping path="/*.ico" />
+			<mvc:exclude-mapping path="/*/api-docs" />
+			<mvc:exclude-mapping path="/swagger**" />
+			<mvc:exclude-mapping path="/webjars/**" />
+			<mvc:exclude-mapping path="/configuration/**" /> -->
+			<bean class="com.arbor.chestnut.common.interceptor.MaliciousRequestInterceptor">
+				<property name="minRequestIntervalTime" value="1000" />
+				<property name="maxMaliciousTimes" value="0" />
+				<!-- <property name="nextInterceptor">
+					<array>
+						<bean class="com.arbor.chestnut.common.interceptor.LocaleInterceptor" />
+						<bean class="com.arbor.chestnut.common.interceptor.EventInterceptor" />
+					</array>
+				</property> -->
+			</bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
+	
+	
+    <!-- AOP式方法级权限检查  -->
+	<bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
+		depends-on="lifecycleBeanPostProcessor">
+		<property name="proxyTargetClass" value="true" />
+	</bean>
+	<bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+    	<property name="securityManager" ref="securityManager"/>
+	</bean>
+	<!--  -->
+	
+	
+
+	<!-- 如果当前请求为“/”时，则转发到“/home/index” -->
+	<!-- <mvc:view-controller path="/" view-name="forward:/home/index"/> -->
+
+
+	<!-- 静态资源映射,不拦截 -->
+	<mvc:resources mapping="/favicon.ico" location="/favicon.ico"
+		cache-period="31556926" />
+	<!--<mvc:resources mapping="/webjars/**" location="/webjars/"
+		cache-period="31556926" />   classpath:/META-INF/resources/webjars/ -->
+	<mvc:resources mapping="/js/**" location="/WEB-INF/assets/js/"
+		cache-period="31556926" />
+	<mvc:resources mapping="/css/**" location="/WEB-INF/assets/css/"
+		cache-period="31556926" />
+	<mvc:resources mapping="/buildcss/**" location="/WEB-INF/build/css/"
+		cache-period="31556926" />
+	<mvc:resources mapping="/fonts/**" location="/WEB-INF/assets/fonts/"
+		cache-period="31556926" />
+	<mvc:resources mapping="/plugins/**" location="/WEB-INF/assets/plugins/"
+		cache-period="31556926" />
+	<mvc:resources mapping="/images/**" location="/WEB-INF/assets/images/"
+		cache-period="31556926" />
+	<mvc:resources mapping="/menu/**" location="/WEB-INF/menu/"
+		cache-period="31556926" />
+	<mvc:resources mapping="/medias/**" location="/medias/"
+		cache-period="31556926" />
+	 <mvc:resources mapping="/less/**" location="/WEB-INF/assets/less/"
+		cache-period="31556926" />
+
+	<!-- 当上面要访问的静态资源不包括在上面的配置中时，则根据此配置来访问 -->
+	<!-- <mvc:default-servlet-handler /> -->
+
+
+
+
+	<!-- 支持上传文件 -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- 设置上传文件的最大尺寸为1MB -->
+		<property name="maxUploadSize">
+			<value>1048576</value>
+		</property>
+		<property name="defaultEncoding">
+			<value>UTF-8</value>
+		</property>
+	</bean>
+
+</beans>

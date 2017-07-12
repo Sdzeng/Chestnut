@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+	<!-- <properties resource="datasource.properties" /> -->
+	<properties
+		url="file:///G:/JWork/workspace/chestnut/chestnut-repository/src/main/resources/datasource.properties" />
+
+	<!-- 数据库驱动包位置 -->
+	<classPathEntry location="${generator.connector.path}" />
+	<context id="DB2Tables" targetRuntime="MyBatis3">
+		<!-- 去除javadoc注释 -->
+		<commentGenerator>
+			<property name="suppressAllComments" value="true" />
+		</commentGenerator>
+		<!-- 数据库链接URL、用户名、密码 -->
+		<jdbcConnection driverClass="${mybatis.generator.jdbcDriver}"
+			connectionURL="${mybatis.generator.jdbcURL}" userId="${datasource.auth.username}"
+			password="${datasource.auth.password}">
+		</jdbcConnection>
+
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+
+		<!-- 生成模型的包名和位置 -->
+		<javaModelGenerator targetPackage="com.arbor.chestnut.repository.entity"
+			targetProject="src/main/java">
+			<property name="enableSubPackages" value="true" />
+			<property name="trimStrings" value="true" />
+		</javaModelGenerator>
+
+		<!-- 生成的映射文件包名和位置 -->
+		<sqlMapGenerator targetPackage="com.arbor.chestnut.repository.mapper"
+			targetProject="src/main/java">
+			<property name="enableSubPackages" value="true" />
+		</sqlMapGenerator>
+
+		<!-- 生成DAO的包名和位置 -->
+		<javaClientGenerator type="XMLMAPPER"
+			targetPackage="com.arbor.chestnut.repository.dao" targetProject="src/main/java">
+			<property name="enableSubPackages" value="true" />
+		</javaClientGenerator>
+
+		<!-- 要生成那些表(更改tableName和domainObjectName就可以) -->
+		<table tableName="f_user" domainObjectName="UserModel"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false"
+			selectByExampleQueryId="false">
+			<columnRenamingRule searchString="^fuser_"
+				replaceString="" />
+		</table>
+		<table tableName="f_user_follower" domainObjectName="UserFollowerModel"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false"
+			selectByExampleQueryId="false">
+			<columnRenamingRule searchString="^fuf_"
+				replaceString="" />
+		</table>
+		<table tableName="f_role" domainObjectName="RoleModel"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false"
+			selectByExampleQueryId="false">
+			<columnRenamingRule searchString="^frole_"
+				replaceString="" />
+		</table>
+		<table tableName="f_function" domainObjectName="FunctionModel"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false"
+			selectByExampleQueryId="false">
+			<columnRenamingRule searchString="^ffunction_"
+				replaceString="" />
+		</table>
+		<table tableName="f_module" domainObjectName="ModuleModel"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false"
+			selectByExampleQueryId="false">
+			<columnRenamingRule searchString="^fmodule_"
+				replaceString="" />
+		</table>
+		<table tableName="f_role_function_relations" domainObjectName="RoleFunctionRelationsModel"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false"
+			selectByExampleQueryId="false">
+			<columnRenamingRule searchString="^frfr_"
+				replaceString="" />
+		</table>
+		<table tableName="f_user_function_relations" domainObjectName="UserFunctionRelationsModel"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false"
+			selectByExampleQueryId="false">
+			<columnRenamingRule searchString="^fufr_"
+				replaceString="" />
+		</table>
+		<table tableName="f_essay" domainObjectName="EssayModel"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false"
+			selectByExampleQueryId="false">
+			<columnRenamingRule searchString="^fessay_"
+				replaceString="" />
+		</table>
+		<table tableName="f_essay_topic_relations" domainObjectName="EssayTopicRelationsModel"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false"
+			selectByExampleQueryId="false">
+			<columnRenamingRule searchString="^fetr_"
+				replaceString="" />
+		</table>
+		<table tableName="f_topic" domainObjectName="TopicModel"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false"
+			selectByExampleQueryId="false">
+			<columnRenamingRule searchString="^ftopic_"
+				replaceString="" />
+		</table>
+		<table tableName="f_essay_tag_relations" domainObjectName="EssayTagRelationsModel"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false"
+			selectByExampleQueryId="false">
+			<columnRenamingRule searchString="^fetr_"
+				replaceString="" />
+		</table>
+		<table tableName="f_tag" domainObjectName="TagModel"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false"
+			selectByExampleQueryId="false">
+			<columnRenamingRule searchString="^ftag_"
+				replaceString="" />
+		</table>
+		<table tableName="f_media" domainObjectName="MediaModel"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false"
+			selectByExampleQueryId="false">
+			<columnRenamingRule searchString="^fmedia_"
+				replaceString="" />
+		</table>
+		<table tableName="f_cover" domainObjectName="CoverModel"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false"
+			selectByExampleQueryId="false">
+			<columnRenamingRule searchString="^fcover_"
+				replaceString="" />
+		</table>
+
+		<!-- <table schema="arbordb" tableName="base_role_module_function_relations" 
+			domainObjectName="RoleModuleFunctionRelationsModel" > <property name="useActualColumnNames" 
+			value="false"/> <generatedKey column="ID" sqlStatement="DB2" identity="true" 
+			/> <columnOverride column="DATE_FIELD" property="startDate" /> <ignoreColumn 
+			column="FRED" /> <columnOverride column="LONG_VARCHAR_FIELD" jdbcType="VARCHAR" 
+			/> </table> -->
+
+
+	</context>
+</generatorConfiguration>

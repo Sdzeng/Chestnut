@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.arbor.chestnut.repository.dao.FunctionModelMapper" >
+  <resultMap id="BaseResultMap" type="com.arbor.chestnut.repository.entity.FunctionModel" >
+    <id column="function_id" property="id" jdbcType="INTEGER" />
+    <result column="function_description" property="description" jdbcType="VARCHAR" />
+    <result column="function_module_id" property="moduleId" jdbcType="INTEGER" />
+    <result column="function_is_enable" property="isEnable" jdbcType="CHAR" />
+    <result column="function_sort" property="sort" jdbcType="SMALLINT" />
+    <result column="function_creator" property="creator" jdbcType="INTEGER" />
+    <result column="function_create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="function_modifier" property="modifier" jdbcType="INTEGER" />
+    <result column="function_modify_date" property="modifyDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    function_id, function_description, function_module_id, function_is_enable, function_sort, 
+    function_creator, function_create_date, function_modifier, function_modify_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from `function`
+    where function_id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from `function`
+    where function_id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.arbor.chestnut.repository.entity.FunctionModel" >
+    insert into `function` (function_id, function_description, function_module_id, 
+      function_is_enable, function_sort, function_creator, 
+      function_create_date, function_modifier, function_modify_date
+      )
+    values (#{id,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}, #{moduleId,jdbcType=INTEGER}, 
+      #{isEnable,jdbcType=CHAR}, #{sort,jdbcType=SMALLINT}, #{creator,jdbcType=INTEGER}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{modifier,jdbcType=INTEGER}, #{modifyDate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.arbor.chestnut.repository.entity.FunctionModel" >
+    insert into `function`
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        function_id,
+      </if>
+      <if test="description != null" >
+        function_description,
+      </if>
+      <if test="moduleId != null" >
+        function_module_id,
+      </if>
+      <if test="isEnable != null" >
+        function_is_enable,
+      </if>
+      <if test="sort != null" >
+        function_sort,
+      </if>
+      <if test="creator != null" >
+        function_creator,
+      </if>
+      <if test="createDate != null" >
+        function_create_date,
+      </if>
+      <if test="modifier != null" >
+        function_modifier,
+      </if>
+      <if test="modifyDate != null" >
+        function_modify_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="moduleId != null" >
+        #{moduleId,jdbcType=INTEGER},
+      </if>
+      <if test="isEnable != null" >
+        #{isEnable,jdbcType=CHAR},
+      </if>
+      <if test="sort != null" >
+        #{sort,jdbcType=SMALLINT},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null" >
+        #{modifier,jdbcType=INTEGER},
+      </if>
+      <if test="modifyDate != null" >
+        #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.arbor.chestnut.repository.entity.FunctionModel" >
+    update `function`
+    <set >
+      <if test="description != null" >
+        function_description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="moduleId != null" >
+        function_module_id = #{moduleId,jdbcType=INTEGER},
+      </if>
+      <if test="isEnable != null" >
+        function_is_enable = #{isEnable,jdbcType=CHAR},
+      </if>
+      <if test="sort != null" >
+        function_sort = #{sort,jdbcType=SMALLINT},
+      </if>
+      <if test="creator != null" >
+        function_creator = #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null" >
+        function_create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null" >
+        function_modifier = #{modifier,jdbcType=INTEGER},
+      </if>
+      <if test="modifyDate != null" >
+        function_modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where function_id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.arbor.chestnut.repository.entity.FunctionModel" >
+    update `function`
+    set function_description = #{description,jdbcType=VARCHAR},
+      function_module_id = #{moduleId,jdbcType=INTEGER},
+      function_is_enable = #{isEnable,jdbcType=CHAR},
+      function_sort = #{sort,jdbcType=SMALLINT},
+      function_creator = #{creator,jdbcType=INTEGER},
+      function_create_date = #{createDate,jdbcType=TIMESTAMP},
+      function_modifier = #{modifier,jdbcType=INTEGER},
+      function_modify_date = #{modifyDate,jdbcType=TIMESTAMP}
+    where function_id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

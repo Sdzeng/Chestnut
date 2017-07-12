@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.arbor.chestnut.repository.dao.ModuleModelMapper" >
+  <resultMap id="BaseResultMap" type="com.arbor.chestnut.repository.entity.ModuleModel" >
+    <id column="module_id" property="id" jdbcType="INTEGER" />
+    <result column="module_description" property="description" jdbcType="VARCHAR" />
+    <result column="module_sort" property="sort" jdbcType="SMALLINT" />
+    <result column="module_parent_id" property="parentId" jdbcType="INTEGER" />
+    <result column="module_creator" property="creator" jdbcType="INTEGER" />
+    <result column="module_create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="module_modifier" property="modifier" jdbcType="INTEGER" />
+    <result column="module_modify_date" property="modifyDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    module_id, module_description, module_sort, module_parent_id, module_creator, 
+    module_create_date, module_modifier, module_modify_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from module
+    where module_id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from module
+    where module_id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.arbor.chestnut.repository.entity.ModuleModel" >
+    insert into module (module_id, module_description, module_sort, 
+      module_parent_id, module_creator, module_create_date, 
+      module_modifier, module_modify_date)
+    values (#{id,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}, #{sort,jdbcType=SMALLINT}, 
+      #{parentId,jdbcType=INTEGER}, #{creator,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{modifier,jdbcType=INTEGER}, #{modifyDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.arbor.chestnut.repository.entity.ModuleModel" >
+    insert into module
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        module_id,
+      </if>
+      <if test="description != null" >
+        module_description,
+      </if>
+      <if test="sort != null" >
+        module_sort,
+      </if>
+      <if test="parentId != null" >
+        module_parent_id,
+      </if>
+      <if test="creator != null" >
+        module_creator,
+      </if>
+      <if test="createDate != null" >
+        module_create_date,
+      </if>
+      <if test="modifier != null" >
+        module_modifier,
+      </if>
+      <if test="modifyDate != null" >
+        module_modify_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null" >
+        #{sort,jdbcType=SMALLINT},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null" >
+        #{modifier,jdbcType=INTEGER},
+      </if>
+      <if test="modifyDate != null" >
+        #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.arbor.chestnut.repository.entity.ModuleModel" >
+    update module
+    <set >
+      <if test="description != null" >
+        module_description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null" >
+        module_sort = #{sort,jdbcType=SMALLINT},
+      </if>
+      <if test="parentId != null" >
+        module_parent_id = #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="creator != null" >
+        module_creator = #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null" >
+        module_create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null" >
+        module_modifier = #{modifier,jdbcType=INTEGER},
+      </if>
+      <if test="modifyDate != null" >
+        module_modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where module_id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.arbor.chestnut.repository.entity.ModuleModel" >
+    update module
+    set module_description = #{description,jdbcType=VARCHAR},
+      module_sort = #{sort,jdbcType=SMALLINT},
+      module_parent_id = #{parentId,jdbcType=INTEGER},
+      module_creator = #{creator,jdbcType=INTEGER},
+      module_create_date = #{createDate,jdbcType=TIMESTAMP},
+      module_modifier = #{modifier,jdbcType=INTEGER},
+      module_modify_date = #{modifyDate,jdbcType=TIMESTAMP}
+    where module_id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.arbor.chestnut.repository.dao.TagModelMapper" >
+  <resultMap id="BaseResultMap" type="com.arbor.chestnut.repository.entity.TagModel" >
+    <id column="tag_id" property="id" jdbcType="INTEGER" />
+    <result column="tag_name" property="name" jdbcType="VARCHAR" />
+    <result column="tag_creator" property="creator" jdbcType="INTEGER" />
+    <result column="tag_create_date" property="createDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    tag_id, tag_name, tag_creator, tag_create_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tag
+    where tag_id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tag
+    where tag_id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.arbor.chestnut.repository.entity.TagModel" >
+    insert into tag (tag_id, tag_name, tag_creator, 
+      tag_create_date)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{creator,jdbcType=INTEGER}, 
+      #{createDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.arbor.chestnut.repository.entity.TagModel" >
+    insert into tag
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        tag_id,
+      </if>
+      <if test="name != null" >
+        tag_name,
+      </if>
+      <if test="creator != null" >
+        tag_creator,
+      </if>
+      <if test="createDate != null" >
+        tag_create_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.arbor.chestnut.repository.entity.TagModel" >
+    update tag
+    <set >
+      <if test="name != null" >
+        tag_name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        tag_creator = #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null" >
+        tag_create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where tag_id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.arbor.chestnut.repository.entity.TagModel" >
+    update tag
+    set tag_name = #{name,jdbcType=VARCHAR},
+      tag_creator = #{creator,jdbcType=INTEGER},
+      tag_create_date = #{createDate,jdbcType=TIMESTAMP}
+    where tag_id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

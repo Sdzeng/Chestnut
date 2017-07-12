@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.arbor.chestnut.repository.dao.RoleFunctionRelationsModelMapper" >
+  <resultMap id="BaseResultMap" type="com.arbor.chestnut.repository.entity.RoleFunctionRelationsModel" >
+    <id column="rfr_role_id" property="roleId" jdbcType="INTEGER" />
+    <id column="rfr_function_id" property="functionId" jdbcType="INTEGER" />
+    <result column="rfr_creator" property="creator" jdbcType="INTEGER" />
+    <result column="rfr_create_date" property="createDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    rfr_role_id, rfr_function_id, rfr_creator, rfr_create_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.arbor.chestnut.repository.entity.RoleFunctionRelationsModelKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from role_function_relations
+    where rfr_role_id = #{roleId,jdbcType=INTEGER}
+      and rfr_function_id = #{functionId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.arbor.chestnut.repository.entity.RoleFunctionRelationsModelKey" >
+    delete from role_function_relations
+    where rfr_role_id = #{roleId,jdbcType=INTEGER}
+      and rfr_function_id = #{functionId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.arbor.chestnut.repository.entity.RoleFunctionRelationsModel" >
+    insert into role_function_relations (rfr_role_id, rfr_function_id, rfr_creator, 
+      rfr_create_date)
+    values (#{roleId,jdbcType=INTEGER}, #{functionId,jdbcType=INTEGER}, #{creator,jdbcType=INTEGER}, 
+      #{createDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.arbor.chestnut.repository.entity.RoleFunctionRelationsModel" >
+    insert into role_function_relations
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="roleId != null" >
+        rfr_role_id,
+      </if>
+      <if test="functionId != null" >
+        rfr_function_id,
+      </if>
+      <if test="creator != null" >
+        rfr_creator,
+      </if>
+      <if test="createDate != null" >
+        rfr_create_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="roleId != null" >
+        #{roleId,jdbcType=INTEGER},
+      </if>
+      <if test="functionId != null" >
+        #{functionId,jdbcType=INTEGER},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.arbor.chestnut.repository.entity.RoleFunctionRelationsModel" >
+    update role_function_relations
+    <set >
+      <if test="creator != null" >
+        rfr_creator = #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null" >
+        rfr_create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where rfr_role_id = #{roleId,jdbcType=INTEGER}
+      and rfr_function_id = #{functionId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.arbor.chestnut.repository.entity.RoleFunctionRelationsModel" >
+    update role_function_relations
+    set rfr_creator = #{creator,jdbcType=INTEGER},
+      rfr_create_date = #{createDate,jdbcType=TIMESTAMP}
+    where rfr_role_id = #{roleId,jdbcType=INTEGER}
+      and rfr_function_id = #{functionId,jdbcType=INTEGER}
+  </update>
+</mapper>

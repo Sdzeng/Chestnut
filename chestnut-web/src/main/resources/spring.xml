@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+        xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:context="http://www.springframework.org/schema/context"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--&lt;!&ndash; Using wildcard matching must be start with "classpath*:" &ndash;&gt;-->
+    <!--<import resource="classpath*:spring-*.xml"/>-->
+    <!-- <import resource="classpath:spring-context-dubbo.xml"/> -->
+    <import resource="classpath:spring-mybatis.xml"/>
+    <import resource="classpath:shiro.xml"/>
+
+    <context:component-scan base-package="com.arbor.chestnut">
+        <context:exclude-filter type="aspectj" expression="com.arbor.chestnut.web.*"/>
+    </context:component-scan>
+
+    <context:annotation-config/>
+
+    <!-- <context:property-placeholder location="classpath:**/*.properties"/> -->
+
+</beans>

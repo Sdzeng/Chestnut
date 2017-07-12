@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.arbor.chestnut.repository.dao.RoleModelMapper" >
+  <resultMap id="BaseResultMap" type="com.arbor.chestnut.repository.entity.RoleModel" >
+    <id column="role_id" property="id" jdbcType="INTEGER" />
+    <result column="role_description" property="description" jdbcType="VARCHAR" />
+    <result column="role_is_static" property="isStatic" jdbcType="CHAR" />
+    <result column="role_creator" property="creator" jdbcType="INTEGER" />
+    <result column="role_create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="role_modifier" property="modifier" jdbcType="INTEGER" />
+    <result column="role_modify_date" property="modifyDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    role_id, role_description, role_is_static, role_creator, role_create_date, role_modifier, 
+    role_modify_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from role
+    where role_id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from role
+    where role_id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.arbor.chestnut.repository.entity.RoleModel" >
+    insert into role (role_id, role_description, role_is_static, 
+      role_creator, role_create_date, role_modifier, 
+      role_modify_date)
+    values (#{id,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}, #{isStatic,jdbcType=CHAR}, 
+      #{creator,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP}, #{modifier,jdbcType=INTEGER}, 
+      #{modifyDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.arbor.chestnut.repository.entity.RoleModel" >
+    insert into role
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        role_id,
+      </if>
+      <if test="description != null" >
+        role_description,
+      </if>
+      <if test="isStatic != null" >
+        role_is_static,
+      </if>
+      <if test="creator != null" >
+        role_creator,
+      </if>
+      <if test="createDate != null" >
+        role_create_date,
+      </if>
+      <if test="modifier != null" >
+        role_modifier,
+      </if>
+      <if test="modifyDate != null" >
+        role_modify_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="isStatic != null" >
+        #{isStatic,jdbcType=CHAR},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null" >
+        #{modifier,jdbcType=INTEGER},
+      </if>
+      <if test="modifyDate != null" >
+        #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.arbor.chestnut.repository.entity.RoleModel" >
+    update role
+    <set >
+      <if test="description != null" >
+        role_description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="isStatic != null" >
+        role_is_static = #{isStatic,jdbcType=CHAR},
+      </if>
+      <if test="creator != null" >
+        role_creator = #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null" >
+        role_create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null" >
+        role_modifier = #{modifier,jdbcType=INTEGER},
+      </if>
+      <if test="modifyDate != null" >
+        role_modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where role_id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.arbor.chestnut.repository.entity.RoleModel" >
+    update role
+    set role_description = #{description,jdbcType=VARCHAR},
+      role_is_static = #{isStatic,jdbcType=CHAR},
+      role_creator = #{creator,jdbcType=INTEGER},
+      role_create_date = #{createDate,jdbcType=TIMESTAMP},
+      role_modifier = #{modifier,jdbcType=INTEGER},
+      role_modify_date = #{modifyDate,jdbcType=TIMESTAMP}
+    where role_id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<!-- xmlns:ng="//angularjs.org" id="ng-app" ng-app="akApp" -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+<meta name="description" content="栗子">
+<meta name="author" content="arbor">
+<meta name="keywords"
+	content="摄影师,摄影,写真,婚纱,私拍,约拍,旅拍,客片,北京,上海,武汉,杭州,成都,广州,长沙,厦门,南京">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+
+<title>栗子</title>
+
+<!-- 把内嵌js放在所有css的前面，没有影响css的并行加载也没有影响body里面img的并行加载 -->
+<script></script>
+
+<!-- <link href="/plugins/bootstrap-3.3.5/dist/css/base.min.css" rel="stylesheet" /> -->
+<!-- <style type="text/css" >
+a {
+	position: relative;
+	
+border: 1px solid rgb(255, 102, 102);
+}
+
+a:hover::before, a:hover::after {   
+    content: "";
+    position: absolute;
+    width: 0.65em;
+    height: 0.65em; 
+/*     border: 1px solid rgb(255, 102, 102); */
+    }
+a:hover::before { 
+    top: -5px;
+    left: -15px;
+   border-top: 1px solid rgb(255, 102, 102);
+    border-left: 1px solid rgb(255, 102, 102);  
+ }
+a:hover::after { 
+
+    bottom: 0px;
+    right: 0px;
+    border-bottom: 1px solid rgb(255, 102, 102);
+    border-right: 1px solid rgb(255, 102, 102); 
+ }
+</style> -->
+
+<link rel="stylesheet/less" type="text/css" href="/plugins/bootstrap-3.3.5/custom_less/chestnut.bootstrap.less" />
+<!-- <script>
+  less = {
+    env: "development",
+    async: false,
+    fileAsync: false,
+    poll: 1000,
+    functions: {},
+    dumpLineNumbers: "comments",
+    relativeUrls: false,
+    rootpath: ":/a.com/"
+  };
+</script> -->
+<script src="/js/less.js" type="text/javascript"></script>
+
+
+
+
+
+
+
+
+
+
+
+<!-- Custom styles for this template -->
+<!-- <link
+	href="http://v3.bootcss.com/examples/jumbotron/Jumbotron Template for Bootstrap_files/jumbotron.css"
+	rel="stylesheet"> -->
+
+<!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+<!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+<!-- <script
+	src="http://v3.bootcss.com/examples/jumbotron/Jumbotron Template for Bootstrap_files/ie-emulation-modes-warning.js"></script> -->
+
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+      <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+<body>
+	<header>
+		<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+			
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header">
+					<!--   用于小屏幕显示右侧的导航按钮 -->
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#chestnut-navbar-collapse" >
+						<!-- 通过添加额外的 .sr-only 文本就可以让辅助设备知道这条提示所要表达的意思了。 -->
+						<span class="sr-only">切换导航</span> 
+						<span class="icon-bar"></span> 
+						<span class="icon-bar"></span> 
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="#">Chestnut</a>
+				</div>
+				<div  id="chestnut-navbar-collapse" class="collapse navbar-collapse">
+					<ul class="nav navbar-nav">
+						<li class="active"><a href="../getting-started/" onclick="_hmt.push(['_trackEvent', 'docv3-navbar', 'click', 'V3导航-起步'])">起步</a></li>
+						<li><a href="../css/" onclick="_hmt.push(['_trackEvent', 'docv3-navbar', 'click', 'V3导航-全局CSS样式'])">全局CSS 样式</a></li>
+						<li><a href="../components/" onclick="_hmt.push(['_trackEvent', 'docv3-navbar', 'click', 'V3导航-组件'])">组件</a></li>
+						<li><a href="../javascript/" onclick="_hmt.push(['_trackEvent', 'docv3-navbar', 'click', 'V3导航-JavaScript插件'])">JavaScript插件</a></li>
+						<li><a href="../customize/" onclick="_hmt.push(['_trackEvent', 'docv3-navbar', 'click', 'V3导航-定制'])">定制</a></li>
+						<li class="dropdown">
+				            <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Java <b class="caret"></b> </a>
+				            <ul class="dropdown-menu">
+				               <li><a href="#">jmeter</a></li>
+				               <li><a href="#">EJB</a></li>
+				               <li><a href="#">Jasper Report</a></li>
+				               <li class="divider"></li>
+				               <li><a href="#">分离的链接</a></li>
+				               <li class="divider"></li>
+				               <li><a href="#">另一个分离的链接</a></li>
+				            </ul>
+				         </li>
+					</ul>
+			   </div>
+		</nav>
+	
+	    <div class="jumbotron">
+		   <div class="container">
+		      <h1>欢迎登陆页面！</h1>
+		      <p>这是一个超大屏幕（Jumbotron）的实例。</p>
+		      <p><a class="btn btn-primary btn-lg" role="button">学习更多</a></p>
+		   </div>
+		</div>
+  
+   </header>
+	
+
+
+	<!-- 外联JS位置 -->
+	<script src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="/plugins/bootstrap-3.3.5/dist/js/base.min.js"></script>
+	<script src="/plugins/angular-1.5.7/angular.min.js"></script>
+	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+	<!-- <script src="http://v3.bootcss.com/examples/jumbotron/Jumbotron Template for Bootstrap_files/ie10-viewport-bug-workaround.js"></script> -->
+</body>
+</html>
+
+

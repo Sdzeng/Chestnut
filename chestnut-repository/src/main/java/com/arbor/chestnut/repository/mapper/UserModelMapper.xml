@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.arbor.chestnut.repository.dao.UserModelMapper" >
+  <resultMap id="BaseResultMap" type="com.arbor.chestnut.repository.entity.UserModel" >
+    <id column="user_id" property="id" jdbcType="INTEGER" />
+    <result column="user_name" property="name" jdbcType="VARCHAR" />
+    <result column="user_phone" property="phone" jdbcType="CHAR" />
+    <result column="user_email" property="email" jdbcType="VARCHAR" />
+    <result column="user_password" property="password" jdbcType="VARCHAR" />
+    <result column="user_nikename" property="nikename" jdbcType="VARCHAR" />
+    <result column="user_photo_path" property="photoPath" jdbcType="VARCHAR" />
+    <result column="user_cover_path" property="coverPath" jdbcType="VARCHAR" />
+    <result column="user_sex" property="sex" jdbcType="CHAR" />
+    <result column="user_experience_value" property="experienceValue" jdbcType="INTEGER" />
+    <result column="user_role_id" property="roleId" jdbcType="INTEGER" />
+    <result column="user_creator" property="creator" jdbcType="INTEGER" />
+    <result column="user_create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="user_modifier" property="modifier" jdbcType="INTEGER" />
+    <result column="user_modify_date" property="modifyDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    user_id, user_name, user_phone, user_email, user_password, user_nikename, user_photo_path, 
+    user_cover_path, user_sex, user_experience_value, user_role_id, user_creator, 
+    user_create_date, user_modifier, user_modify_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from `user`
+    where user_id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from `user`
+    where user_id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.arbor.chestnut.repository.entity.UserModel" >
+    insert into `user` (user_id, user_name, user_phone, 
+      user_email, user_password, user_nikename, 
+      user_photo_path, user_cover_path, user_sex, 
+      user_experience_value, user_role_id, user_creator, 
+      user_create_date, user_modifier, user_modify_date
+      )
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{phone,jdbcType=CHAR}, 
+      #{email,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{nikename,jdbcType=VARCHAR}, 
+      #{photoPath,jdbcType=VARCHAR}, #{coverPath,jdbcType=VARCHAR}, #{sex,jdbcType=CHAR}, 
+      #{experienceValue,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER}, #{creator,jdbcType=INTEGER}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{modifier,jdbcType=INTEGER}, #{modifyDate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.arbor.chestnut.repository.entity.UserModel" >
+    insert into `user`
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        user_id,
+      </if>
+      <if test="name != null" >
+        user_name,
+      </if>
+      <if test="phone != null" >
+        user_phone,
+      </if>
+      <if test="email != null" >
+        user_email,
+      </if>
+      <if test="password != null" >
+        user_password,
+      </if>
+      <if test="nikename != null" >
+        user_nikename,
+      </if>
+      <if test="photoPath != null" >
+        user_photo_path,
+      </if>
+      <if test="coverPath != null" >
+        user_cover_path,
+      </if>
+      <if test="sex != null" >
+        user_sex,
+      </if>
+      <if test="experienceValue != null" >
+        user_experience_value,
+      </if>
+      <if test="roleId != null" >
+        user_role_id,
+      </if>
+      <if test="creator != null" >
+        user_creator,
+      </if>
+      <if test="createDate != null" >
+        user_create_date,
+      </if>
+      <if test="modifier != null" >
+        user_modifier,
+      </if>
+      <if test="modifyDate != null" >
+        user_modify_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=CHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="nikename != null" >
+        #{nikename,jdbcType=VARCHAR},
+      </if>
+      <if test="photoPath != null" >
+        #{photoPath,jdbcType=VARCHAR},
+      </if>
+      <if test="coverPath != null" >
+        #{coverPath,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=CHAR},
+      </if>
+      <if test="experienceValue != null" >
+        #{experienceValue,jdbcType=INTEGER},
+      </if>
+      <if test="roleId != null" >
+        #{roleId,jdbcType=INTEGER},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null" >
+        #{modifier,jdbcType=INTEGER},
+      </if>
+      <if test="modifyDate != null" >
+        #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.arbor.chestnut.repository.entity.UserModel" >
+    update `user`
+    <set >
+      <if test="name != null" >
+        user_name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        user_phone = #{phone,jdbcType=CHAR},
+      </if>
+      <if test="email != null" >
+        user_email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        user_password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="nikename != null" >
+        user_nikename = #{nikename,jdbcType=VARCHAR},
+      </if>
+      <if test="photoPath != null" >
+        user_photo_path = #{photoPath,jdbcType=VARCHAR},
+      </if>
+      <if test="coverPath != null" >
+        user_cover_path = #{coverPath,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        user_sex = #{sex,jdbcType=CHAR},
+      </if>
+      <if test="experienceValue != null" >
+        user_experience_value = #{experienceValue,jdbcType=INTEGER},
+      </if>
+      <if test="roleId != null" >
+        user_role_id = #{roleId,jdbcType=INTEGER},
+      </if>
+      <if test="creator != null" >
+        user_creator = #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null" >
+        user_create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null" >
+        user_modifier = #{modifier,jdbcType=INTEGER},
+      </if>
+      <if test="modifyDate != null" >
+        user_modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where user_id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.arbor.chestnut.repository.entity.UserModel" >
+    update `user`
+    set user_name = #{name,jdbcType=VARCHAR},
+      user_phone = #{phone,jdbcType=CHAR},
+      user_email = #{email,jdbcType=VARCHAR},
+      user_password = #{password,jdbcType=VARCHAR},
+      user_nikename = #{nikename,jdbcType=VARCHAR},
+      user_photo_path = #{photoPath,jdbcType=VARCHAR},
+      user_cover_path = #{coverPath,jdbcType=VARCHAR},
+      user_sex = #{sex,jdbcType=CHAR},
+      user_experience_value = #{experienceValue,jdbcType=INTEGER},
+      user_role_id = #{roleId,jdbcType=INTEGER},
+      user_creator = #{creator,jdbcType=INTEGER},
+      user_create_date = #{createDate,jdbcType=TIMESTAMP},
+      user_modifier = #{modifier,jdbcType=INTEGER},
+      user_modify_date = #{modifyDate,jdbcType=TIMESTAMP}
+    where user_id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

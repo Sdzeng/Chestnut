@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.arbor.chestnut.repository.dao.CoverModelMapper" >
+  <resultMap id="BaseResultMap" type="com.arbor.chestnut.repository.entity.CoverModel" >
+    <id column="cover_show_date" property="showDate" jdbcType="DATE" />
+    <result column="cover_media_id" property="mediaId" jdbcType="BIGINT" />
+    <result column="cover_creator" property="creator" jdbcType="INTEGER" />
+    <result column="cover_create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="cover_modifier" property="modifier" jdbcType="INTEGER" />
+    <result column="cover_modify_date" property="modifyDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    cover_show_date, cover_media_id, cover_creator, cover_create_date, cover_modifier, 
+    cover_modify_date   
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.util.Date" >
+    select 
+    <include refid="Base_Column_List" />
+    from cover
+    where cover_show_date=#{showDate,jdbcType=DATE}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.util.Date" >
+    delete from cover
+    where cover_show_date = #{showDate,jdbcType=DATE}
+  </delete>
+  <insert id="insert" parameterType="com.arbor.chestnut.repository.entity.CoverModel" >
+    insert into cover (cover_show_date, cover_media_id, cover_creator, 
+      cover_create_date, cover_modifier, cover_modify_date
+      )
+    values (#{showDate,jdbcType=DATE}, #{mediaId,jdbcType=BIGINT}, #{creator,jdbcType=INTEGER}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{modifier,jdbcType=INTEGER}, #{modifyDate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.arbor.chestnut.repository.entity.CoverModel" >
+    insert into cover
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="showDate != null" >
+        cover_show_date,
+      </if>
+      <if test="mediaId != null" >
+        cover_media_id,
+      </if>
+      <if test="creator != null" >
+        cover_creator,
+      </if>
+      <if test="createDate != null" >
+        cover_create_date,
+      </if>
+      <if test="modifier != null" >
+        cover_modifier,
+      </if>
+      <if test="modifyDate != null" >
+        cover_modify_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="showDate != null" >
+        #{showDate,jdbcType=DATE},
+      </if>
+      <if test="mediaId != null" >
+        #{mediaId,jdbcType=BIGINT},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null" >
+        #{modifier,jdbcType=INTEGER},
+      </if>
+      <if test="modifyDate != null" >
+        #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.arbor.chestnut.repository.entity.CoverModel" >
+    update cover
+    <set >
+      <if test="mediaId != null" >
+        cover_media_id = #{mediaId,jdbcType=BIGINT},
+      </if>
+      <if test="creator != null" >
+        cover_creator = #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null" >
+        cover_create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null" >
+        cover_modifier = #{modifier,jdbcType=INTEGER},
+      </if>
+      <if test="modifyDate != null" >
+        cover_modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where cover_show_date = #{showDate,jdbcType=DATE}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.arbor.chestnut.repository.entity.CoverModel" >
+    update cover
+    set cover_media_id = #{mediaId,jdbcType=BIGINT},
+      cover_creator = #{creator,jdbcType=INTEGER},
+      cover_create_date = #{createDate,jdbcType=TIMESTAMP},
+      cover_modifier = #{modifier,jdbcType=INTEGER},
+      cover_modify_date = #{modifyDate,jdbcType=TIMESTAMP}
+    where cover_show_date = #{showDate,jdbcType=DATE}
+  </update>
+  
+  <!-- extends -->
+  <resultMap id="coverResultMap" extends="BaseResultMap" type="com.arbor.chestnut.repository.entity.CoverModel">
+		<association property="mediaModel"  javaType="com.arbor.chestnut.repository.entity.MediaModel">
+			<id property="id" column="media_id" jdbcType="BIGINT" />
+			<result property="path" column="media_path" jdbcType="VARCHAR" />
+			
+			<association property="essayModel" column="essay_id" javaType="com.arbor.chestnut.repository.entity.EssayModel">
+				<id property="id" column="essay_id" jdbcType="BIGINT"  />
+				<result property="content" column="essay_content" jdbcType="VARCHAR"  />
+				<result property="location" column="essay_location"  jdbcType="VARCHAR"  />
+				<result property="goodNum" column="essay_good_num" jdbcType="INTEGER" />
+				<result property="isDelete" column="essay_is_delete" jdbcType="BIT" />
+				<result property="createDate" column="essay_create_date" jdbcType="INTEGER" />
+			</association>
+	    	<association property="userModel" column="user_id" javaType="com.arbor.chestnut.repository.entity.UserModel">
+				<id property="id" column="user_id"  jdbcType="INTEGER" />
+				<result property="nikename" column="user_nikename" jdbcType="VARCHAR"  />
+			</association> 
+			
+		</association>
+		
+	
+	</resultMap>
+	<select id="getDateCover"  parameterType="java.util.Date"  resultMap="coverResultMap">
+	
+		select  
+        cover.*,
+	    media.media_id media_id,
+		media.media_path media_path,
+		media.media_essay_id,
+		
+		essay.essay_id essay_id,
+		essay.essay_content essay_content,
+        essay.essay_location essay_location,
+		essay.essay_good_num essay_good_num,
+		essay.essay_is_delete essay_is_delete,
+		essay.essay_create_date essay_create_date,
+        essay.essay_creator,
+
+		user.user_id user_id,
+		user.user_nikename user_nikename 
+	   
+		
+		 
+
+		from 
+		(select * from cover 
+		<!--  where cover_show_date &lt;= #{showDate,jdbcType=DATE} 也可以 -->
+		<![CDATA[ where cover_show_date <= #{showDate,jdbcType=DATE}  ]]>     
+		order by cover_show_date desc limit 1 ) cover
+		left join media ON cover.cover_media_id = media.media_id  
+		left join essay ON media.media_essay_id = essay.essay_id
+        left join user on essay.essay_creator=user.user_id
+        where essay.essay_is_delete=0  
+	</select>
+</mapper>

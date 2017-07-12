@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.arbor.chestnut.repository.dao.UserFunctionRelationsModelMapper" >
+  <resultMap id="BaseResultMap" type="com.arbor.chestnut.repository.entity.UserFunctionRelationsModel" >
+    <id column="ufr_user_id" property="userId" jdbcType="INTEGER" />
+    <id column="ufr_function_id" property="functionId" jdbcType="INTEGER" />
+    <result column="ufr_effect" property="effect" jdbcType="CHAR" />
+    <result column="ufr_creator" property="creator" jdbcType="INTEGER" />
+    <result column="ufr_create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="ufr_modifier" property="modifier" jdbcType="INTEGER" />
+    <result column="ufr_modify_date" property="modifyDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ufr_user_id, ufr_function_id, ufr_effect, ufr_creator, ufr_create_date, ufr_modifier, 
+    ufr_modify_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.arbor.chestnut.repository.entity.UserFunctionRelationsModelKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_function_relations
+    where ufr_user_id = #{userId,jdbcType=INTEGER}
+      and ufr_function_id = #{functionId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.arbor.chestnut.repository.entity.UserFunctionRelationsModelKey" >
+    delete from user_function_relations
+    where ufr_user_id = #{userId,jdbcType=INTEGER}
+      and ufr_function_id = #{functionId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.arbor.chestnut.repository.entity.UserFunctionRelationsModel" >
+    insert into user_function_relations (ufr_user_id, ufr_function_id, ufr_effect, 
+      ufr_creator, ufr_create_date, ufr_modifier, 
+      ufr_modify_date)
+    values (#{userId,jdbcType=INTEGER}, #{functionId,jdbcType=INTEGER}, #{effect,jdbcType=CHAR}, 
+      #{creator,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP}, #{modifier,jdbcType=INTEGER}, 
+      #{modifyDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.arbor.chestnut.repository.entity.UserFunctionRelationsModel" >
+    insert into user_function_relations
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        ufr_user_id,
+      </if>
+      <if test="functionId != null" >
+        ufr_function_id,
+      </if>
+      <if test="effect != null" >
+        ufr_effect,
+      </if>
+      <if test="creator != null" >
+        ufr_creator,
+      </if>
+      <if test="createDate != null" >
+        ufr_create_date,
+      </if>
+      <if test="modifier != null" >
+        ufr_modifier,
+      </if>
+      <if test="modifyDate != null" >
+        ufr_modify_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="functionId != null" >
+        #{functionId,jdbcType=INTEGER},
+      </if>
+      <if test="effect != null" >
+        #{effect,jdbcType=CHAR},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null" >
+        #{modifier,jdbcType=INTEGER},
+      </if>
+      <if test="modifyDate != null" >
+        #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.arbor.chestnut.repository.entity.UserFunctionRelationsModel" >
+    update user_function_relations
+    <set >
+      <if test="effect != null" >
+        ufr_effect = #{effect,jdbcType=CHAR},
+      </if>
+      <if test="creator != null" >
+        ufr_creator = #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null" >
+        ufr_create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null" >
+        ufr_modifier = #{modifier,jdbcType=INTEGER},
+      </if>
+      <if test="modifyDate != null" >
+        ufr_modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ufr_user_id = #{userId,jdbcType=INTEGER}
+      and ufr_function_id = #{functionId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.arbor.chestnut.repository.entity.UserFunctionRelationsModel" >
+    update user_function_relations
+    set ufr_effect = #{effect,jdbcType=CHAR},
+      ufr_creator = #{creator,jdbcType=INTEGER},
+      ufr_create_date = #{createDate,jdbcType=TIMESTAMP},
+      ufr_modifier = #{modifier,jdbcType=INTEGER},
+      ufr_modify_date = #{modifyDate,jdbcType=TIMESTAMP}
+    where ufr_user_id = #{userId,jdbcType=INTEGER}
+      and ufr_function_id = #{functionId,jdbcType=INTEGER}
+  </update>
+</mapper>
