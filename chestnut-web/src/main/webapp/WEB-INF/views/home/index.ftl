@@ -1,5 +1,5 @@
-<#include "base.ftl"> 
-<@base base_title="LOCAL泛设计" base_js=["/js/index.js"] base_css=["/less/index.less"] base_keywords="主页">
+<#include "../shared/base.ftl"> 
+<@base base_title="LOCAL泛设计" splash_height=400 base_js=["/js/index.js"] base_css=["/less/index.less"] >
 <!--host -->
 <div id="section-host" class="section-style">
 
